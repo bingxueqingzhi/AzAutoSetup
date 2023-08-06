@@ -1,2 +1,15 @@
 apt update && apt upgrade && apt install git cmake make gcc g++ clang default-libmysqlclient-dev libssl-dev libbz2-dev libreadline-dev libncurses-dev mariadb-server libboost-all-dev tmux
 apt install git curl unzip sudo
+git clone https://github.com/azerothcore/azerothcore-wotlk.git; cd azerothcore-wotlk
+./acore.sh install-deps
+./acore.sh compiler all
+./acore.sh client-data
+
+DROP USER IF EXISTS 'acore'@'localhost';
+DROP USER IF EXISTS 'acore'@'127.0.0.1';
+CREATE USER 'acore'@'localhost' IDENTIFIED BY 'acore';
+CREATE USER 'acore'@'127.0.0.1' IDENTIFIED BY 'acore';
+GRANT ALL PRIVILEGES ON * . * TO 'acore'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON * . * TO 'acore'@'127.0.0.1' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+exit;
