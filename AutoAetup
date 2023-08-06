@@ -1,0 +1,1 @@
+apt update && apt upgrade && apt install git cmake make gcc g++ clang default-libmysqlclient-dev libssl-dev libbz2-dev libreadline-dev libncurses-dev mariadb-server libboost-all-dev tmux
