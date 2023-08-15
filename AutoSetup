@@ -1,5 +1,4 @@
-apt update && apt upgrade && apt install git cmake make gcc g++ clang default-libmysqlclient-dev libssl-dev libbz2-dev libreadline-dev libncurses-dev mariadb-server libboost-all-dev tmux
-apt install git curl unzip sudo
+apt update && apt upgrade && apt install unzip curl sudo git cmake make gcc g++ clang default-libmysqlclient-dev libssl-dev libbz2-dev libreadline-dev libncurses-dev mariadb-server libboost-all-dev tmux
 git clone https://github.com/azerothcore/azerothcore-wotlk.git; cd azerothcore-wotlk
 ./acore.sh install-deps
 ./acore.sh compiler all
