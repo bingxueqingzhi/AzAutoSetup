@@ -28,8 +28,8 @@ cp env/dist/etc/worldserver.conf.dist env/dist/etc/worldserver.conf
 #!/usr/bin/env bash
 
 # CHANGE THESE WITH THE CORRECT PATHS
-authserver="/path/to/azerothcore-wotlk/acore.sh run-authserver"
-worldserver="/path/to/azerothcore-wotlk/acore.sh run-worldserver"
+authserver="/usr/games/azerothcore-wotlk/acore.sh run-authserver"
+worldserver="/usr/games/azerothcore-wotlk/acore.sh run-worldserver"
 
 authserver_session="auth-session"
 worldserver_session="world-session"
