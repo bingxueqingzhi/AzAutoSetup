@@ -1,0 +1,61 @@
+dnf update
+dnf install git unzip nano tmux cmake make gcc g++ clang boost-devel readline-devel mariadb-server mariadb-connector-c-devel
+cd /usr/games
+git clone https://github.com/azerothcore/azerothcore-wotlk.git
+cd azerothcore-wotlk
+./acore.sh compiler all
+systemctl enable mariadb
+systemctl start mariadb
+mysql_secure_installation
+DROP USER IF EXISTS 'acore'@'localhost';
+DROP USER IF EXISTS 'acore'@'127.0.0.1';
+CREATE USER 'acore'@'localhost' IDENTIFIED BY 'acore';
+CREATE USER 'acore'@'127.0.0.1' IDENTIFIED BY 'acore';
+GRANT ALL PRIVILEGES ON * . * TO 'acore'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON * . * TO 'acore'@'127.0.0.1' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+exit;
+
+./acore.sh client-data
+cp env/dist/etc/authserver.conf.dist env/dist/etc/authserver.conf
+cp env/dist/etc/worldserver.conf.dist env/dist/etc/worldserver.conf
+
+
+
+
+
+
+#!/usr/bin/env bash
+
+# CHANGE THESE WITH THE CORRECT PATHS
+authserver="/path/to/azerothcore-wotlk/acore.sh run-authserver"
+worldserver="/path/to/azerothcore-wotlk/acore.sh run-worldserver"
+
+authserver_session="auth-session"
+worldserver_session="world-session"
+
+if tmux new-session -d -s $authserver_session; then
+    echo "Created authserver session: $authserver_session"
+else
+    echo "Error when trying to create authserver session: $authserver_session"
+fi
+
+if tmux new-session -d -s $worldserver_session; then
+    echo "Created worldserver session: $worldserver_session"
+else
+    echo "Error when trying to create worldserver session: $worldserver_session"
+fi
+
+if tmux send-keys -t $authserver_session "$authserver" C-m; then
+    echo "Executed \"$authserver\" inside $authserver_session"
+    echo "You can attach to $authserver_session and check the result using \"tmux attach -t $authserver_session\""
+else
+    echo "Error when executing \"$authserver\" inside $authserver_session"
+fi
+
+if tmux send-keys -t $worldserver_session "$worldserver" C-m; then
+    echo "Executed \"$worldserver\" inside $worldserver_session"
+    echo "You can attach to $worldserver_session and check the result using \"tmux attach -t $worldserver_session\""
+else
+    echo "Error when executing \"$worldserver\" inside $worldserver_session"
+fi
