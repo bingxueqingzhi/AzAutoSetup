@@ -8,6 +8,9 @@ git clone https://github.com/azerothcore/mod-transmog.git mod-transmog
 git clone https://github.com/ZhengPeiRu21/mod-challenge-modes.git mod-challenge-modes
 cd /usr/games/azerothcore-wotlk
 ./acore.sh compiler all
+cp env/dist/etc/authserver.conf.dist env/dist/etc/authserver.conf
+cp env/dist/etc/worldserver.conf.dist env/dist/etc/worldserver.conf
+./acore.sh client-data
 systemctl enable mariadb
 systemctl start mariadb
 mysql_secure_installation
@@ -20,9 +23,6 @@ GRANT ALL PRIVILEGES ON * . * TO 'acore'@'127.0.0.1' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 exit;
 
-./acore.sh client-data
-cp env/dist/etc/authserver.conf.dist env/dist/etc/authserver.conf
-cp env/dist/etc/worldserver.conf.dist env/dist/etc/worldserver.conf
 
 
 
